@@ -36,17 +36,17 @@ class CustomUserManger(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     # Fields
-    email = models.EmailField(max_length=255, unique=True, verbose_name="email")
-    username = models.CharField(max_length=50)    
-    date_joined = models.DateTimeField(auto_now_add=True, verbose_name="Date joined")
-    last_login = models.DateTimeField(auto_now=True, verbose_name="Last login")
+    email       =   models.EmailField(max_length=255, unique=True, verbose_name="email")
+    username    =   models.CharField(max_length=50)    
+    date_joined =   models.DateTimeField(auto_now_add=True, verbose_name="Date joined")
+    last_login  =   models.DateTimeField(auto_now=True, verbose_name="Last login")
 
     # Boolean Fields
-    is_active = models.BooleanField(default=True)  
-    is_admin = models.BooleanField(default=False)
-    is_staff = models.BooleanField(default=False)
-    is_superuser = models.BooleanField(default=False)
-    is_public = models.BooleanField(default=False)
+    is_active       =   models.BooleanField(default=True)  
+    is_admin        =   models.BooleanField(default=False)
+    is_staff        =   models.BooleanField(default=False)
+    is_superuser    =   models.BooleanField(default=False)
+    is_public       =   models.BooleanField(default=False)
 
     # User specification
     USERNAME_FIELD = "email"  # used as the unique identifier. (unique=True shall be set on the field.)
@@ -61,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 
 class UserProfile(models.Model):
     
-    user = models.OneToOneField(to=User, on_delete=models.CASCADE)
-    bio = models.CharField(max_length=300, verbose_name="소개", blank=True, null=True)
-    birthday = models.DateField(verbose_name="생일")
+    user        =   models.OneToOneField(to=User, on_delete=models.CASCADE)
+    bio         =   models.CharField(max_length=300, verbose_name="소개", blank=True, null=True)
+    birthday    =   models.DateField(verbose_name="생일")
 

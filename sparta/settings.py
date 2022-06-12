@@ -130,6 +130,11 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
+# User model setting
+
+AUTH_USER_MODEL = 'user.User'
+
+
 # DRF configuration
 
 REST_FRAMEWORK = {
