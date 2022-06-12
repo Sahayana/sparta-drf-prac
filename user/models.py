@@ -23,12 +23,12 @@ class CustomUserManger(BaseUserManager):
         return user
 
     def create_superuser(self, email, password, username, **extra_fields):
-        user = self.create_user(email=email, password=password, username=username, **extra_fields)       
-        user.is_active = True
+        user = self.create_user(email=email, password=password, username=username, **extra_fields)    
         user.is_admin = True
         user.is_staff = True
         user.is_superuser = True
         user.is_public = True
+        user.save(using=self._db)
         return user
 
 
@@ -36,8 +36,8 @@ class CustomUserManger(BaseUserManager):
 
 class User(AbstractBaseUser, PermissionsMixin):
     # Fields
-    email       =   models.EmailField(max_length=255, unique=True, verbose_name="email")
-    username    =   models.CharField(max_length=50)    
+    email       =   models.EmailField(max_length=255, unique=True, verbose_name="Email")
+    username    =   models.CharField(max_length=50, unique=True, verbose_name="Username")    
     date_joined =   models.DateTimeField(auto_now_add=True, verbose_name="Date joined")
     last_login  =   models.DateTimeField(auto_now=True, verbose_name="Last login")
 
@@ -49,14 +49,14 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_public       =   models.BooleanField(default=False)
 
     # User specification
-    USERNAME_FIELD = "email"  # used as the unique identifier. (unique=True shall be set on the field.)
-    REQUIRED_FIELDS = ["name"]  # Fields that can be prompted when creating a superuser by command.
+    USERNAME_FIELD = "username"  # used as the unique identifier. (unique=True shall be set on the field.)
+    REQUIRED_FIELDS = ["email"]  # Fields that can be prompted when creating a superuser by command.
 
     # Set object manager
     objects = CustomUserManger()
 
     def __str__(self) -> str:
-        return self.name
+        return self.username
 
 
 class UserProfile(models.Model):
