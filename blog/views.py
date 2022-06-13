@@ -1,13 +1,11 @@
-from calendar import c
-from unicodedata import category
-from django.shortcuts import render
+
 from user.models import UserProfile, User
 from user.permissions import IsPublicPermission
 from blog.models import Article, Category
 from blog.serializers import ArticleSerializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import permissions, status, generics
+from rest_framework import status
 from django.views.decorators.csrf import csrf_exempt
 
 
