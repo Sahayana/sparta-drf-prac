@@ -4,7 +4,7 @@ from user.serializers import UserProfileSerializers
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import permissions, status, generics
-
+from django.views.decorators.csrf import csrf_exempt
 
 # Create your views here.
 
@@ -12,6 +12,7 @@ class UserApiView(APIView):
 
     permission_classes  =   [permissions.AllowAny]
     
+    @csrf_exempt
     def post(self, request):        
         username = request.data.get('username', '')
         password = request.data.get('password', '')
@@ -30,6 +31,6 @@ class UserDetailView(APIView):
     def get(self, request):
         if not request.user.is_authenticated:
             return Response({"error": "AUTHENTICATION_FAILED"}, status=status.HTTP_401_UNAUTHORIZED)
-        user = UserProfile.objects.select_related("user").get(user_id=request.user.id)
+        user = UserProfile.objects.select_related("user").prefetch_related("article_set").get(user_id=request.user.id)
         data = UserProfileSerializers(user).data        
         return Response(data, status=status.HTTP_200_OK)

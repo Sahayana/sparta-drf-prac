@@ -1,6 +1,6 @@
 from django.db import models
 
-from user.models import UserProfile
+from user.models import UserProfile, User
 
 # Create your models here.
 
@@ -15,8 +15,8 @@ class Category(models.Model):
 
 class Article(models.Model):
 
-    category    =   models.ManyToManyField(Category, related_name="categories")
-    author      =   models.ForeignKey(UserProfile, on_delete=models.CASCADE, verbose_name="작성자")
+    category    =   models.ManyToManyField(Category)
+    author      =   models.ForeignKey(User, on_delete=models.CASCADE, verbose_name="작성자")
     title       =   models.CharField(max_length=300, verbose_name="제목")
     content     =   models.TextField(verbose_name="내용")
     created_at  =   models.DateTimeField(auto_now_add=True, verbose_name="글작성시간")
