@@ -4,17 +4,21 @@ from blog.serializers import ArticleSerializers
 
 
 class UserSerializers(serializers.ModelSerializer):
+    article_set =   ArticleSerializers(many=True)
+
     class Meta:
-        model = User
-        exclude = ("password", "groups", "user_permissions")
+        model   =   User
+        exclude =   ("groups", "user_permissions")
+        extra_kwargs    =   {
+            "password": {"write_only": True}
+        }
 
 
 
 class UserProfileSerializers(serializers.ModelSerializer):
-    user = UserSerializers()
-    article_set = ArticleSerializers(many=True)
+    user        =   UserSerializers()    
 
     class Meta:
-        model = UserProfile
-        fields = '__all__'
+        model   =   UserProfile
+        fields  =   '__all__'
         

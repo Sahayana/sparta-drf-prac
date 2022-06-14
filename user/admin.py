@@ -23,8 +23,9 @@ from user.models import User, UserProfile
 #         ("Date", {"fields" : ("date_joined", "last_login")}),
 #     )
 
-admin.site.register(User)
+# admin.site.register(User, CustomUserAdmin)
 
+admin.site.register(User)
 
 # class CustomUserProfileAdmin(admin.ModelAdmin):
 
@@ -36,6 +37,8 @@ admin.site.register(User)
 #         (None, {"fields" : ("id", "user")}),
 #         ("Personal info", {"fields" : ("bio", "birthday")}),        
 #     )
+
+# admin.site.register(UserProfile, CustomUserProfileAdmin)
 
 admin.site.register(UserProfile)
 admin.site.unregister(Group)

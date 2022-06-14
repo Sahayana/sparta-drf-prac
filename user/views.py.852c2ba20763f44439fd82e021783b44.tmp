@@ -31,6 +31,6 @@ class UserDetailView(APIView):
     def get(self, request):
         if not request.user.is_authenticated:
             return Response({"error": "AUTHENTICATION_FAILED"}, status=status.HTTP_401_UNAUTHORIZED)
-        user = User.objects.prefetch_related("article_set").get(id=request.user.id)
+        user = User.objects.prefetch_related("article_set").get(user_id=request.user.id)
         data = UserSerializers(user).data        
         return Response(data, status=status.HTTP_200_OK)
